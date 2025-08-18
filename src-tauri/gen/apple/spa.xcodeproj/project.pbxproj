@@ -17,6 +17,7 @@
 		79420E3D2944A22A788C29B1 /* libapp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E82F96CEEFE17C994719D13D /* libapp.a */; };
 		90CA907A711F7A60E6137F73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 898490C98D09A0820C806839 /* Assets.xcassets */; };
 		932E98A127AF809955675E0A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D93667F7547B0E15FEDF5 /* UIKit.framework */; };
+		A88BF699626D2407A08BC779 /* libapp.a in Resources */ = {isa = PBXBuildFile; fileRef = 7F7D5274CBD4E8B3CE7A07EE /* libapp.a */; };
 		ABCEB980896ABCB4BF38E322 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FC2F0B0FC4B8C1A1F1E71C7 /* CoreGraphics.framework */; };
 		DBEF36416575960A6207A479 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F5BECC32BF5F3370B0C4A20 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -33,6 +34,7 @@
 		786138A14C3957478D861541 /* lib.rs */ = {isa = PBXFileReference; path = lib.rs; sourceTree = "<group>"; };
 		7B02568AF9ED85D0EC855CCA /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 		7F5BECC32BF5F3370B0C4A20 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		7F7D5274CBD4E8B3CE7A07EE /* libapp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libapp.a; sourceTree = "<group>"; };
 		87B0011BEF47B3DD94B2FB07 /* spa_iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = spa_iOS.entitlements; sourceTree = "<group>"; };
 		898490C98D09A0820C806839 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AECBB338D2EEC67D388B8C1C /* main.rs */ = {isa = PBXFileReference; path = main.rs; sourceTree = "<group>"; };
@@ -101,6 +103,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		45C05834F20039692EFF85C3 /* x86_64 */ = {
+			isa = PBXGroup;
+			children = (
+				90B53295B1F0DB21E7654CF7 /* debug */,
+			);
+			path = x86_64;
+			sourceTree = "<group>";
+		};
 		67DBC1591FF2A407CB359BEE /* spa_iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -108,6 +118,14 @@
 				87B0011BEF47B3DD94B2FB07 /* spa_iOS.entitlements */,
 			);
 			path = spa_iOS;
+			sourceTree = "<group>";
+		};
+		90B53295B1F0DB21E7654CF7 /* debug */ = {
+			isa = PBXGroup;
+			children = (
+				7F7D5274CBD4E8B3CE7A07EE /* libapp.a */,
+			);
+			path = debug;
 			sourceTree = "<group>";
 		};
 		93A9E1A34B67CB55B617B3FC /* Products */ = {
@@ -131,6 +149,7 @@
 		BE21E16C373340730AD7261E /* Externals */ = {
 			isa = PBXGroup;
 			children = (
+				45C05834F20039692EFF85C3 /* x86_64 */,
 			);
 			path = Externals;
 			sourceTree = "<group>";
@@ -148,6 +167,13 @@
 				3B036FD60E422FE753D8C21C /* Frameworks */,
 				93A9E1A34B67CB55B617B3FC /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		"TEMP_2E7A69A9-3A3C-4103-A98A-A4D4F6FD8E34" /* arm64 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = arm64;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -209,6 +235,7 @@
 				90CA907A711F7A60E6137F73 /* Assets.xcassets in Resources */,
 				DBEF36416575960A6207A479 /* LaunchScreen.storyboard in Resources */,
 				57831EAA4D992C6FA31C5A74 /* assets in Resources */,
+				A88BF699626D2407A08BC779 /* libapp.a in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,10 +302,10 @@
 				"LIBRARY_SEARCH_PATHS[arch=arm64]" = "$(inherited) $(PROJECT_DIR)/Externals/arm64/$(CONFIGURATION) $(SDKROOT)/usr/lib/swift $(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME) $(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)";
 				"LIBRARY_SEARCH_PATHS[arch=x86_64]" = "$(inherited) $(PROJECT_DIR)/Externals/x86_64/$(CONFIGURATION) $(SDKROOT)/usr/lib/swift $(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME) $(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ctm.spa;
-				PRODUCT_NAME = "spa";
+				PRODUCT_NAME = spa;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "arm64  x86_64";
+				VALID_ARCHS = x86_64;
 			};
 			name = debug;
 		};
@@ -307,10 +334,10 @@
 				"LIBRARY_SEARCH_PATHS[arch=arm64]" = "$(inherited) $(PROJECT_DIR)/Externals/arm64/$(CONFIGURATION) $(SDKROOT)/usr/lib/swift $(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME) $(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)";
 				"LIBRARY_SEARCH_PATHS[arch=x86_64]" = "$(inherited) $(PROJECT_DIR)/Externals/x86_64/$(CONFIGURATION) $(SDKROOT)/usr/lib/swift $(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME) $(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ctm.spa;
-				PRODUCT_NAME = "spa";
+				PRODUCT_NAME = spa;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "arm64  x86_64";
+				VALID_ARCHS = x86_64;
 			};
 			name = release;
 		};
