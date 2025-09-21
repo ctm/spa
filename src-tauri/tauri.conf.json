@@ -4,9 +4,9 @@
   "version": "0.1.0",
   "identifier": "com.ctm.spa",
   "build": {
-    "beforeDevCommand": "trunk serve",
+    "beforeDevCommand": "trunk serve --features=tauri",
     "devUrl": "http://localhost:1420",
-    "beforeBuildCommand": "trunk build",
+    "beforeBuildCommand": "trunk build --features=tauri",
     "frontendDist": "../dist"
   },
   "app": {

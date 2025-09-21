@@ -110,3 +110,11 @@ button {
     background-color: #0f0f0f69;
   }
 }
+
+.tables-three-columns {
+  list-style-type: none; /* Removes the numbers from the list items */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Creates three equal-width columns */
+  gap: 10px; /* Adds spacing between the items */
+  padding: 0;
+ }   
