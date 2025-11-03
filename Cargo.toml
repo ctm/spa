@@ -38,4 +38,5 @@ license = "UNLICENSE"
 serde = { version = "1.0.219", features = ["derive"] }
 
 [features]
-tauri = ["tauri-sys"]
+tauri = ["tauri-sys", "tauri-command-types/tauri"]
+spa = ["tauri-command-types/spa"]

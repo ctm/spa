@@ -1,10 +1,17 @@
 mod app;
 mod lobby;
 mod table;
+mod table_info;
 mod util;
 mod window;
 
-pub(crate) use {app::Route, lobby::Lobby, table::Table, window::Window};
+pub(crate) use {
+    app::Route,
+    lobby::Lobby,
+    table::Table,
+    table_info::{TableInfo, TableWindow, Tables},
+    window::Window,
+};
 
 use app::App;
 use js_sys::{JSON, JsString};

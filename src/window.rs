@@ -6,7 +6,7 @@ use {
 pub(crate) enum Error {
     Failure(String),
 
-    #[cfg(not(feature = "tauri"))]
+    #[cfg(all(not(feature = "tauri"), not(feature = "spa")))]
     NoWindow,
 }
 
@@ -16,7 +16,7 @@ impl From<JsValue> for Error {
     }
 }
 
-#[cfg(not(feature = "tauri"))]
+#[cfg(all(not(feature = "tauri"), not(feature = "spa")))]
 #[derive(thiserror::Error, Debug, Display)]
 pub(crate) enum OpenerError {
     Failure(String),
@@ -32,14 +32,14 @@ pub(crate) enum OpenerError {
     BroadcastChannelFailure(String),
 }
 
-#[cfg(not(feature = "tauri"))]
+#[cfg(all(not(feature = "tauri"), not(feature = "spa")))]
 impl From<JsValue> for OpenerError {
     fn from(jv: JsValue) -> Self {
         Self::Failure(human(jv))
     }
 }
 
-#[cfg(not(feature = "tauri"))]
+#[cfg(all(not(feature = "tauri"), not(feature = "spa")))]
 #[derive(thiserror::Error, Debug, Display)]
 pub(crate) enum SendError {
     #[cfg(feature = "tauri")]
@@ -57,20 +57,23 @@ pub(crate) enum SendError {
     DispatchEventFailed(String),
 }
 
-#[cfg(not(feature = "tauri"))]
+#[cfg(all(not(feature = "tauri"), not(feature = "spa")))]
 impl From<serde_wasm_bindgen::Error> for SendError {
     fn from(e: serde_wasm_bindgen::Error) -> Self {
         Self::CantSerialize(e)
     }
 }
 
-#[cfg(feature = "tauri")]
+#[cfg(feature = "spa")]
+pub(crate) use spa::Window;
+
+#[cfg(all(feature = "tauri", not(feature = "spa")))]
 pub(crate) use tauri::Window;
 
-#[cfg(not(feature = "tauri"))]
+#[cfg(all(not(feature = "tauri"), not(feature = "spa")))]
 pub(crate) use web_sys::Window;
 
-#[cfg(feature = "tauri")]
+#[cfg(all(feature = "tauri", not(feature = "spa")))]
 mod tauri {
     use {
         super::{Error, PopUpFeatures, human},
@@ -94,6 +97,7 @@ mod tauri {
     {
         // NOTE: currently this code will always return Ok, even if tauri
         // fails to open a new window.
+        #[cfg(not(feature = "spa"))]
         pub(crate) fn new(features: PopUpFeatures, need_channel: bool) -> Result<Self, Error> {
             let label = features.target.clone();
             let channel = if need_channel {
@@ -170,7 +174,7 @@ mod tauri {
     }
 }
 
-#[cfg(not(feature = "tauri"))]
+#[cfg(all(not(feature = "tauri"), not(feature = "spa")))]
 mod web_sys {
     use {
         super::{Error, OpenerError, PopUpFeatures, SendError},
@@ -212,6 +216,7 @@ mod web_sys {
             }
         }
 
+        #[cfg(not(feature = "spa"))]
         pub(crate) fn new(features: PopUpFeatures, _need_channel: bool) -> Result<Self, Error> {
             gloo_utils::window()
                 .open_with_url_and_target_and_features(
@@ -259,6 +264,46 @@ mod web_sys {
                     Ok(r) => link.send_message(r),
                 }
             })
+        }
+    }
+}
+
+#[cfg(feature = "spa")]
+mod spa {
+    use {
+        super::{Error, PopUpFeatures},
+        serde::{Deserialize, Serialize},
+        std::marker::PhantomData,
+        yew::Component,
+    };
+
+    #[derive(Clone, Debug, Eq, PartialEq)]
+    pub(crate) struct Window<C: Component> {
+        message_type: PhantomData<C>,
+    }
+
+    impl<C: Component> Window<C>
+    where
+        C::Message: Serialize + for<'a> Deserialize<'a>,
+    {
+        pub(crate) fn new(_features: PopUpFeatures, _need_channel: bool) -> Result<Self, Error> {
+            Ok(Self {
+                message_type: PhantomData,
+            })
+        }
+
+        pub(crate) fn current() -> Self {
+            Self {
+                message_type: PhantomData,
+            }
+        }
+
+        pub(crate) fn set_title(&self, _title: String) {
+            // Title setting is not currently allowed in spa
+        }
+
+        pub(crate) fn close(&self) -> Result<(), Error> {
+            Ok(()) // I don't think we need to do anything here
         }
     }
 }

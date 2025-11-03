@@ -1,7 +1,7 @@
-use {
-    serde::{Deserialize, Serialize},
-    std::fmt::{self, Display, Formatter},
-};
+use serde::{Deserialize, Serialize};
+
+#[cfg(not(feature = "spa"))]
+use std::fmt::{self, Display, Formatter};
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct Size {
@@ -15,15 +15,24 @@ pub struct Position {
     pub left: u32,
 }
 
+#[cfg(not(feature = "spa"))]
 #[derive(Debug, Deserialize, Serialize)]
 pub struct PopUpFeatures {
     pub url: String,
     pub target: String,
     pub size: Option<Size>,
     pub position: Option<Position>,
+    #[cfg(all(feature = "tauri", not(feature = "spa")))]
     pub close_notification: Option<CloseNotification>,
 }
 
+#[cfg(feature = "spa")]
+#[derive(Debug, Deserialize, Serialize)]
+pub struct PopUpFeatures {
+    pub path: String,
+}
+
+#[cfg(not(feature = "spa"))]
 impl Display for PopUpFeatures {
     fn fmt(&self, f: &mut Formatter) -> Result<(), fmt::Error> {
         let need_comma;

@@ -8,3 +8,7 @@ publish = false
 [dependencies]
 serde = { workspace = true }
 
+[features]
+default = []
+tauri = []
+spa = []
