@@ -143,4 +143,5 @@ button {
   width: 100vw;
   height: 100vh;
   z-index: 1;
+  padding-top: 3vh; /* so the buttons are clickable on Android */
 }
