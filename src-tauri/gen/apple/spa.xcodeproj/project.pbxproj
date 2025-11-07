@@ -17,7 +17,6 @@
 		79420E3D2944A22A788C29B1 /* libapp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E82F96CEEFE17C994719D13D /* libapp.a */; };
 		90CA907A711F7A60E6137F73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 898490C98D09A0820C806839 /* Assets.xcassets */; };
 		932E98A127AF809955675E0A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D93667F7547B0E15FEDF5 /* UIKit.framework */; };
-		A88BF699626D2407A08BC779 /* libapp.a in Resources */ = {isa = PBXBuildFile; fileRef = 7F7D5274CBD4E8B3CE7A07EE /* libapp.a */; };
 		ABCEB980896ABCB4BF38E322 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FC2F0B0FC4B8C1A1F1E71C7 /* CoreGraphics.framework */; };
 		DBEF36416575960A6207A479 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F5BECC32BF5F3370B0C4A20 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -34,7 +33,6 @@
 		786138A14C3957478D861541 /* lib.rs */ = {isa = PBXFileReference; lastKnownFileType = text; path = lib.rs; sourceTree = "<group>"; };
 		7B02568AF9ED85D0EC855CCA /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 		7F5BECC32BF5F3370B0C4A20 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		7F7D5274CBD4E8B3CE7A07EE /* libapp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libapp.a; sourceTree = "<group>"; };
 		87B0011BEF47B3DD94B2FB07 /* spa_iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = spa_iOS.entitlements; sourceTree = "<group>"; };
 		898490C98D09A0820C806839 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AECBB338D2EEC67D388B8C1C /* main.rs */ = {isa = PBXFileReference; lastKnownFileType = text; path = main.rs; sourceTree = "<group>"; };
@@ -103,14 +101,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		45C05834F20039692EFF85C3 /* x86_64 */ = {
-			isa = PBXGroup;
-			children = (
-				90B53295B1F0DB21E7654CF7 /* debug */,
-			);
-			path = x86_64;
-			sourceTree = "<group>";
-		};
 		67DBC1591FF2A407CB359BEE /* spa_iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -118,14 +108,6 @@
 				87B0011BEF47B3DD94B2FB07 /* spa_iOS.entitlements */,
 			);
 			path = spa_iOS;
-			sourceTree = "<group>";
-		};
-		90B53295B1F0DB21E7654CF7 /* debug */ = {
-			isa = PBXGroup;
-			children = (
-				7F7D5274CBD4E8B3CE7A07EE /* libapp.a */,
-			);
-			path = debug;
 			sourceTree = "<group>";
 		};
 		93A9E1A34B67CB55B617B3FC /* Products */ = {
@@ -149,7 +131,6 @@
 		BE21E16C373340730AD7261E /* Externals */ = {
 			isa = PBXGroup;
 			children = (
-				45C05834F20039692EFF85C3 /* x86_64 */,
 			);
 			path = Externals;
 			sourceTree = "<group>";
@@ -199,7 +180,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1640;
+				LastUpgradeCheck = 1430;
 			};
 			buildConfigurationList = AEF2F29DCC5B5CD12D8FC54B /* Build configuration list for PBXProject "spa" */;
 			compatibilityVersion = "Xcode 14.0";
@@ -227,7 +208,6 @@
 				90CA907A711F7A60E6137F73 /* Assets.xcassets in Resources */,
 				DBEF36416575960A6207A479 /* LaunchScreen.storyboard in Resources */,
 				57831EAA4D992C6FA31C5A74 /* assets in Resources */,
-				A88BF699626D2407A08BC779 /* libapp.a in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,12 +252,17 @@
 		D092749C447026187B3F0DFA /* debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ARCHS = (
+					arm64,
+					x86_64,
+				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = spa_iOS/spa_iOS.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = JAKF837UQ2;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphoneos*]" = x86_64;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\".\"",
@@ -305,19 +290,24 @@
 				PRODUCT_NAME = "spa";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "x86_64 arm64";
+				VALID_ARCHS = "arm64  x86_64";
 			};
 			name = debug;
 		};
 		F5384CDC735F5B43A8BEB77A /* release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ARCHS = (
+					arm64,
+					x86_64,
+				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = spa_iOS/spa_iOS.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = JAKF837UQ2;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphoneos*]" = x86_64;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\".\"",
@@ -345,7 +335,7 @@
 				PRODUCT_NAME = "spa";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "x86_64 arm64";
+				VALID_ARCHS = "arm64  x86_64";
 			};
 			name = release;
 		};
@@ -384,10 +374,8 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = JAKF837UQ2;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -402,7 +390,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -449,10 +437,8 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = JAKF837UQ2;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -461,7 +447,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
