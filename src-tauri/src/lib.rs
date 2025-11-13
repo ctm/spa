@@ -8,8 +8,11 @@ async fn open_window(
     app_handle: tauri::AppHandle,
     url: String,
     target: String,
-    size: Option<Size>,
-    position: Option<Position>,
+
+    #[cfg_attr(mobile, expect(unused_variables))] size: Option<Size>,
+
+    #[cfg_attr(mobile, expect(unused_variables))] position: Option<Position>,
+
     close_notification: Option<CloseNotification>,
 ) -> Result<bool, String> {
     use tauri::WebviewUrl::*;
@@ -29,6 +32,8 @@ async fn open_window(
 
         App(std::path::PathBuf::from(url))
     };
+
+    #[cfg_attr(mobile, expect(unused_mut))]
     let mut builder = tauri::WebviewWindowBuilder::new(&app_handle, target, url);
 
     #[cfg(desktop)]
@@ -80,8 +85,9 @@ fn window_apply(
 async fn set_title(
     app_handle: tauri::AppHandle,
     label: String,
-    title: String,
+    #[cfg_attr(mobile, expect(unused_variables))] title: String,
 ) -> Result<bool, String> {
+    #[cfg_attr(mobile, expect(unused_variables))]
     window_apply(app_handle, &label, |w| {
         #[cfg(desktop)]
         {
@@ -98,6 +104,7 @@ async fn set_title(
 
 #[tauri::command]
 async fn close_window(app_handle: tauri::AppHandle, label: String) -> Result<bool, String> {
+    #[cfg_attr(mobile, expect(unused_variables))]
     window_apply(app_handle, &label, |w| {
         #[cfg(desktop)]
         {
