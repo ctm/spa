@@ -1,0 +1,6 @@
+{
+  "build": {
+    "beforeDevCommand": "trunk serve --features=tauri,spa",
+    "beforeBuildCommand": "trunk build --features=tauri,spa"
+  }
+}

@@ -65,10 +65,10 @@ cargo tauri dev -c src-tauri/spa.conf.json
 
 Both
 ```
-cargo tauri ios dev
+cargo tauri ios dev [--host]
 ```
 and
 ```
 cargo tauri android dev
 ```
-automatically enable the `spa` feature, as does `... build`.
+automatically enable the `spa` feature, as do the  `build` variants.
