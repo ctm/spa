@@ -10,5 +10,4 @@ serde = { workspace = true }
 
 [features]
 default = []
-tauri = []
 spa = []

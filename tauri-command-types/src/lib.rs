@@ -22,7 +22,7 @@ pub struct PopUpFeatures {
     pub target: String,
     pub size: Option<Size>,
     pub position: Option<Position>,
-    #[cfg(all(feature = "tauri", not(feature = "spa")))]
+    #[cfg(not(feature = "spa"))]
     pub close_notification: Option<CloseNotification>,
 }
 
