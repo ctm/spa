@@ -127,7 +127,7 @@ impl Tables {
 
     pub(crate) fn html(&self, f: impl Fn(&TableInfo) -> Html) -> Html {
         html! {
-            for self.tables().iter().map(f)
+            { for self.tables().iter().map(f) }
         }
     }
 
