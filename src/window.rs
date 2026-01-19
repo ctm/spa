@@ -20,16 +20,10 @@ impl From<JsValue> for Error {
 #[derive(thiserror::Error, Debug, Display)]
 pub(crate) enum OpenerError {
     Failure(String),
-
-    #[cfg(not(feature = "tauri"))]
     NoWindow,
 
-    #[cfg(not(feature = "tauri"))]
     #[display("wrong type: {_0:?}")]
     WrongType(JsValue),
-
-    #[cfg(feature = "tauri")]
-    BroadcastChannelFailure(String),
 }
 
 #[cfg(all(not(feature = "tauri"), not(feature = "spa")))]
@@ -42,12 +36,6 @@ impl From<JsValue> for OpenerError {
 #[cfg(all(not(feature = "tauri"), not(feature = "spa")))]
 #[derive(thiserror::Error, Debug, Display)]
 pub(crate) enum SendError {
-    #[cfg(feature = "tauri")]
-    NoChannel,
-
-    #[cfg(feature = "tauri")]
-    PostMessageFailed(String),
-
     CantSerialize(serde_wasm_bindgen::Error),
 
     #[cfg(not(feature = "tauri"))]
@@ -97,7 +85,6 @@ mod tauri {
     {
         // NOTE: currently this code will always return Ok, even if tauri
         // fails to open a new window.
-        #[cfg(not(feature = "spa"))]
         pub(crate) fn new(features: PopUpFeatures, need_channel: bool) -> Result<Self, Error> {
             let label = features.target.clone();
             let channel = if need_channel {
@@ -216,7 +203,6 @@ mod web_sys {
             }
         }
 
-        #[cfg(not(feature = "spa"))]
         pub(crate) fn new(features: PopUpFeatures, _need_channel: bool) -> Result<Self, Error> {
             gloo_utils::window()
                 .open_with_url_and_target_and_features(

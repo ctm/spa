@@ -54,7 +54,7 @@ fn features(id: TableId) -> PopUpFeatures {
 
     let path = Route::Table { id }.to_path();
 
-    #[cfg(all(feature = "tauri", not(feature = "spa")))]
+    #[cfg(feature = "tauri")]
     let close_notification = Some(CloseNotification {
         receiver_label: "main".to_string(),
         id: id.into(),
@@ -72,7 +72,7 @@ fn features(id: TableId) -> PopUpFeatures {
             width: 300,
         }),
         position: None,
-        #[cfg(all(feature = "tauri", not(feature = "spa")))]
+        #[cfg(feature = "tauri")]
         close_notification,
     }
 }
@@ -103,7 +103,6 @@ impl Lobby {
     #[cfg(all(feature = "tauri", not(feature = "spa")))]
     fn new() -> Self {
         Self {
-            #[cfg(not(feature = "spa"))]
             tables: Default::default(),
         }
     }
@@ -111,7 +110,6 @@ impl Lobby {
     #[cfg(all(not(feature = "tauri"), not(feature = "spa")))]
     fn new(_child_listener: gloo_events::EventListener) -> Self {
         Self {
-            #[cfg(not(feature = "spa"))]
             tables: Default::default(),
             _child_listener,
         }
