@@ -137,7 +137,7 @@ impl Tables {
         f: impl Fn((Option<Route>, TableId, Option<Route>)) -> Html,
     ) -> Html {
         html! {
-            for TableInfo::left_this_right(&self.0.borrow()).map(f)
+            { for TableInfo::left_this_right(&self.0.borrow()).map(f) }
         }
     }
 }
