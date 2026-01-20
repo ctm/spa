@@ -52,13 +52,23 @@ impl Component for App {
                     Route::Table { id } => Some(id),
                 };
                 let tables = tables.clone();
+                let class = if id.is_some() { Some("hide") } else { None };
                 html! {
                     <>
-                        <Lobby {tables} show={id.is_none()} />
+                        <div {class}>
+                            <Lobby {tables} />
+                        </div>
                         {
                             tables_too.triple_html(|(left, this, right)| {
+                                let class = if id == Some(this) {
+                                    None
+                                } else {
+                                    Some("hide")
+                                };
                                 html! {
-                                    <Table key={this} id={this} show={id == Some(this)} {left} {right} />
+                                    <div {class}>
+                                        <Table key={this} id={this} {left} {right} />
+                                    </div>
                                 }
                             })
                         }

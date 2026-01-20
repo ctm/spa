@@ -7,25 +7,9 @@ use crate::Route;
 pub(crate) struct Properties {
     pub(crate) id: TableId,
     #[cfg(feature = "spa")]
-    pub(crate) show: bool,
-    #[cfg(feature = "spa")]
     pub(crate) left: Option<Route>,
     #[cfg(feature = "spa")]
     pub(crate) right: Option<Route>,
-}
-
-impl Properties {
-    fn class(&self) -> Option<&'static str> {
-        #[cfg(not(feature = "spa"))]
-        {
-            None
-        }
-
-        #[cfg(feature = "spa")]
-        {
-            (!self.show).then_some("hide")
-        }
-    }
 }
 
 pub(crate) struct Table {
@@ -110,13 +94,12 @@ impl Component for Table {
     }
 
     fn view(&self, ctx: &Context<Self>) -> Html {
-        let class = ctx.props().class();
         let nav_buttons = nav_buttons(ctx);
         html! {
-            <div {class}>
+            <>
                 { &self.state }
                 { nav_buttons }
-            </div>
+            </>
         }
     }
 }

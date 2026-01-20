@@ -14,23 +14,6 @@ use tauri_command_types::CloseNotification;
 pub(crate) struct Properties {
     #[cfg(feature = "spa")]
     pub(crate) tables: Tables,
-
-    #[cfg(feature = "spa")]
-    pub(crate) show: bool,
-}
-
-impl Properties {
-    fn class(&self) -> Option<&'static str> {
-        #[cfg(not(feature = "spa"))]
-        {
-            None
-        }
-
-        #[cfg(feature = "spa")]
-        {
-            (!self.show).then_some("hide")
-        }
-    }
 }
 
 #[derive(Clone, Deserialize, Eq, PartialEq, Serialize)]
@@ -233,12 +216,11 @@ impl Component for Lobby {
 
     fn view(&self, ctx: &Context<Self>) -> Html {
         let onclick = ctx.link().callback(|_| Msg::CreateWindow);
-        let class = ctx.props().class();
         html! {
-            <div {class}>
+            <>
                 <button {onclick}>{"Create Window"}</button>
                 { self.tables_view(ctx) }
-            </div>
+            </>
         }
     }
 }
